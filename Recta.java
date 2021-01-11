@@ -2,9 +2,9 @@ public class Recta(){
     private Punto a;
     private Punto b;
     public Recta( Punto a, Punto b ){
-        this.a = a; this.b = b;
-        if( a.gx() < b.gx() )
-            this.flip();
+        this.a = a;
+		this.b = b;
+        this.flip();
     }
     public ga(){return this.a}
     public gb(){return this.b}
@@ -12,6 +12,7 @@ public class Recta(){
     public sb(Punta b){this.a = b}
 
 	public void flip(){
+        if( a.gx() < b.gx() )
 		Punto x = this.b.clone();
 		this.b = this.a;
 		this.a = x;
@@ -23,5 +24,7 @@ public class Recta(){
     public Punto pat( double d){
         return new Punto( 
             a.gx() + d * sin( gslope() ),
-            a.gy() + d * sin( gslop() )  );}
+            a.gy() + d * sin( gslope() )
+		);
+	}
 }

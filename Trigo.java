@@ -10,13 +10,14 @@ public class Trigo{
 	}
 
     public static Punto inter( Punto a, Punto b, Punto c, Punto d ){
-        Recta r1 = new Recta( a, b );
-        Recta r2 = new Recta( b, c );
+		return Trigo.inter( new Recta( a, b ), new Recta( a, b ) );
+	}
+    public static Punto inter( Recta r1, Recta r2 ){
         double alpha = Trigo.angle( r1.gb(), r1.ga() r2.ga() );
         double delta = Trigo.angle( r2.gb(), r1.ga() r2.ga() );
         double omega = Math.PI - alpha - delta;
         double dg = Trigo.sinlaw( omega, r1.ga().distancia(r2.ga()), alpha, null );
-        
+		return r2.pat( dg );        
     }
 
 	public static double sinlaw(Double alpha, Double da, Double betta, Double db ){
