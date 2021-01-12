@@ -29,7 +29,7 @@ public class Rectangulo{
     public Rectangulo(double x1, double x2, double y1, double y2)
         {n="";a= new Punto(x1,y1);b= new Punto(x2,y2);}
 
-    public void moverRect( Punto A, Punto B ){	a = A; b = B; }
+    public Rectangulo moverRect( Punto A, Punto B ){	a = A; b = B; return this; }
     
     public Punto ga() { return a; }
     public Punto gb() { return b; }
@@ -41,6 +41,15 @@ public class Rectangulo{
 
     public String toString()
         {return n+":["+a.toString()+","+b.toString()+"]";}
+
+	public boolean dentro( Rectangulo r ){
+		if( this.ga().gx() > r.ga().gx() &&
+			this.gb().gx() < r.gb().gx() &&
+			this.ga().gy() > r.ga().gy() &&
+			this.gb().gy() < r.gb().gy() )
+			return true;
+		return false;
+	}
 
     public Rectangulo inter(Rectangulo r){
         List<Double> ex = new ArrayList<Double>(
@@ -67,20 +76,24 @@ public class Rectangulo{
     }
 
     public boolean dentroDe( Punto p ){
-	return ( p.gx() > a.gx() && p.gx() < b.gx() &&
+		return ( p.gx() > a.gx() && p.gx() < b.gx() &&
 		 p.gy() > a.gy() && p.gy() < b.gy() );
     }
 
     public double area(){
-	double ar = b.gx() - a.gx() * b.gy() - a.gy();
-	return ar<0? ar*-1:ar;
+		double ar = b.gx() - a.gx() * b.gy() - a.gy();
+		return ar<0? ar*-1:ar;
     }
 
-    public int comparar(Rectangulo r)
-	    { return T==R? 0: T<R? -1: 1; }
+    public int comparar(Rectangulo r){ 
+		double T = this.area(), R = r.area();
+		return T==R? 0: T<R? -1: 1; 
+	}
 
-    public int comparar(Triangulo r)
-	    { return T==R? 0: T<R? -1: 1; }
+    public int comparar(Triangulo r){ 
+		double T = this.area(), R = r.area();
+		return T==R? 0: T<R? -1: 1; 
+	}
 
     public int cuadRect(){ return a.cuadrante(); }
 
