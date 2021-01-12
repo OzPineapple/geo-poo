@@ -6,9 +6,13 @@ public class Recta(){
 		this.b = b;
         this.flip();
     }
-    public ga(){return this.a}
-    public gb(){return this.b}
-    public sa(Punta a){this.a = a}
+    public Punto ga(){return this.a}
+    public Punto gb(){return this.b}
+	public double gxl(){return a.gx() < b.gx() ? a.gx() : b.gx(); }
+	public double gxg(){return a.gx() > b.gx() ? a.gx() : b.gx(); }
+	public double gyl(){return a.gy() < b.gy() ? a.gy() : b.gy(); }
+	public double gyg(){return a.gy() > b.gy() ? a.gy() : b.gy(); }
+    public Punto sa(Punta a){this.a = a}
     public sb(Punta b){this.a = b}
 
 	public void flip(){

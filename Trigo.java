@@ -13,7 +13,9 @@ public class Trigo{
 		return Trigo.inter( new Recta( a, b ), new Recta( a, b ) );
 	}
     public static Punto inter( Recta r1, Recta r2 ){
-        double alpha = Trigo.angle( r1.gb(), r1.ga() r2.ga() );
+		if( r1.gxl() > r2.gxb() || r1.gxb() < r2.gxl() ||
+			r1.gyl() > r2.gyb() || r1.gyb() < r2.gyl() )
+				return null;
         double delta = Trigo.angle( r2.gb(), r1.ga() r2.ga() );
         double omega = Math.PI - alpha - delta;
         double dg = Trigo.sinlaw( omega, r1.ga().distancia(r2.ga()), alpha, null );

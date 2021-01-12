@@ -29,9 +29,7 @@ public class Rectangulo{
     public Rectangulo(double x1, double x2, double y1, double y2)
         {n="";a= new Punto(x1,y1);b= new Punto(x2,y2);}
 
-    public void moverRect( Punto A, Punto B ){
-	a = A; b = B;
-    }
+    public void moverRect( Punto A, Punto B ){	a = A; b = B; }
     
     public Punto ga() { return a; }
     public Punto gb() { return b; }
