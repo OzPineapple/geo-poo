@@ -2,7 +2,7 @@ d:
 	rm -f *.class;
 	javac *.java && clear && java main
 
-c:
+clear:
 	rm -f *.class
 
 b:
