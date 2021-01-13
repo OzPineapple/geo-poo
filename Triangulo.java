@@ -88,8 +88,8 @@ public class Triangulo {
 			for( int j = 0 ; j < 3 ; j++ ) {
 				p[0] = A.grs()[j].inter( r[0] );
 				p[1] = A.grs()[j].inter( r[1] ) ;
-				if( p[0] == null || p[1] == null ) return null;
-				return new Triangulo( B.gps()[i], p[0], p[1] );
+				if( p[0] != null || p[1] != null )
+					return new Triangulo( B.gps()[i], p[0], p[1] );
 			}
 		}
 		return cps == 3 ? B : null;
