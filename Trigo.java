@@ -16,15 +16,35 @@ public class Trigo{
 	public static double punto( Punto a, Punto b )
 		{return (a.gx()*b.gx()) + (a.gy()*b.gy());}
 
-    public static Punto interRecta( Recta r1, Recta r2 ){
-		if( r1.gxl() > r2.gxb() || r1.gxb() < r2.gxl() ||
-			r1.gyl() > r2.gyb() || r1.gyb() < r2.gyl() )
-				return null;
-        double delta = Trigo.angle( r2.gb(), r1.ga(), r2.ga() );
-        double alpha = Trigo.angle( r1.gb(), r1.ga(), r2.ga() );
-        double omega = Math.PI - alpha - delta;
-        double dg = Trigo.sinlaw( omega, r1.ga().distancia(r2.ga()), alpha, null );
-		return r2.pat( dg );        
+	public static Punto interRecta( Recta r1, Recta r2 ){
+		return Trigo.interRecta(	
+				r1.ga(),
+				r2.ga(),
+				r1.ga().vec( r1.gb() ),
+				r2.ga().vec( r2.gb() )
+		);
+	}
+	
+    public static Punto interRecta( Punto p , Punto q, Punto r, Punto s ){
+		double rXs		= r.cruz( s );
+		double q_pXr	= q.vec( p ).cruz( r );
+		double q_pXs	= q.vec( p ).cruz( s );
+		double t,u;
+		if( rXs == 0 ){
+			if( q_pXr == 0 ){
+				t = (q.vec(p) ).punto( r ) / ( r.punto( r ) );
+				u = t + s.punto( r )   / ( r.punto( r ) );
+				if( t < 0 || u < 0 ) return null;
+				return p.add( r.scal( t ) ); 
+			} else return null;
+		} else {
+			t = q_pXs / rXs;		
+			u = q_pXr / rXs;		
+			if( t >= 0 && t <= 1 &&
+				u >= 0 && u <= 1 ){
+				return p.add( r.scal( t ) );
+			} else return null;
+		} 
     }
 
 	public static double sinlaw(Double alpha, Double da, Double betta, Double db ){
@@ -39,11 +59,18 @@ public class Trigo{
         else return 0.0;
 	}
 
+	public static double cruz( Punto a, Punto b ) {
+		return Trigo.abs( Trigo.cruz( 
+				new double[]{ a.gx(), a.gy(), 0 },
+				new double[]{ b.gx(), b.gy(), 0 }
+		));
+	}
+
 	public static double[] cruz( double[] u, double[] v ){
 		return new double[]{
 			u[1]*v[2] - u[2]*v[1],
 			u[2]*v[0] - u[0]*v[2],
-			u[0]*v[2] - u[1]*v[0]
+			u[0]*v[1] - u[1]*v[0]
 		};
 	}
 

@@ -17,6 +17,9 @@ public class Recta{
     public void sa(Punto a){this.a = a;}
     public void  sb(Punto b){this.a = b;}
 
+	public String toString()
+		{return "{" + a.toString() + "-" + b.toString() + "}";}
+
 	public void flip(){
         if( a.gx() < b.gx() ) return;
 		Punto x = this.b.clone();

@@ -54,5 +54,11 @@ public class Punto{
 	public double punto( Punto p )
 		{return Trigo.punto( this, p );}
 
+	public double cruz( Punto p )
+		{return Trigo.cruz( this, p );}
+
+	public Punto scal( double s )
+		{return new Punto( x * s, y * s );}
+
     public Punto clone(){ return new Punto( this.gx(), this.gy() );}
 }

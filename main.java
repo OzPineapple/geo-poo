@@ -63,7 +63,7 @@ public class main{
 				print( i.moverRect( i.ga().add(new Punto(1,1)) , i.gb().add(new Punto(1,1)) ).toString() );
 		ps = new Punto[]{
 			new Punto(1,1), new Punto(4,5), new Punto(5,2),
-			new Punto(4,3), new Punto(5,5), new Punto(7,2),
+			new Punto(4,3), new Punto(5,5), new Punto(7,3),
 			new Punto(-5,1), new Punto(-4,4), new Punto(-3,1),
 			new Punto(-6,2), new Punto(-6,4), new Punto(-2,2),
 			new Punto(-5,-3), new Punto(-4,-1), new Punto(-3,-4),

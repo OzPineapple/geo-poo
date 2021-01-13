@@ -84,12 +84,11 @@ public class Triangulo {
 			cps++;
 			r[0] = new Recta( B.gps()[i], B.gps()[ i == 0 ? 2: i - 1 ] );
 			r[1] = new Recta( B.gps()[i], B.gps()[ i == 2 ? 0: i + 1 ] );
-			
 			for( int j = 0 ; j < 3 ; j++ ) {
 				p[0] = A.grs()[j].inter( r[0] );
 				p[1] = A.grs()[j].inter( r[1] ) ;
-				if( p[0] != null || p[1] != null )
-					return new Triangulo( B.gps()[i], p[0], p[1] );
+				if( p[0] == null || p[1] == null ) continue;
+				return new Triangulo( B.gps()[i], p[0], p[1] );
 			}
 		}
 		return cps == 3 ? B : null;
