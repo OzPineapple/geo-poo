@@ -77,19 +77,22 @@ public class Triangulo {
 	public Triangulo inter( Triangulo A, Triangulo B ){
 		Recta r[] = new Recta[2];
 		Punto p[] = new Punto[2];
-		for( int i = 0; i < 3 ; i++ ) {
-			if( ! B.puntoDentro( A.gps()[i] ) ) continue;
+		int cps = 0;
 
-			r[0] = new Recta( A.gps()[i], A.gps()[ i == 0 ? 2: i - 1 ] );
-			r[1] = new Recta( A.gps()[i], A.gps()[ i == 2 ? 0: i + 1 ] );
+		for( int i = 0; i < 3 ; i++ ) {
+			if( ! A.puntoDentro( B.gps()[i] ) ) continue;
+			cps++;
+			r[0] = new Recta( B.gps()[i], B.gps()[ i == 0 ? 2: i - 1 ] );
+			r[1] = new Recta( B.gps()[i], B.gps()[ i == 2 ? 0: i + 1 ] );
 			
 			for( int j = 0 ; j < 3 ; j++ ) {
-				p[0] = B.grs()[j].inter( r[0] );
-				p[1] = B.grs()[j].inter( r[1] ) ;
+				p[0] = A.grs()[j].inter( r[0] );
+				p[1] = A.grs()[j].inter( r[1] ) ;
 				if( p[0] == null || p[1] == null ) return null;
-				return new Triangulo( A.gps()[i], p[0], p[1] );
+				return new Triangulo( B.gps()[i], p[0], p[1] );
 			}
-		} return null;
+		}
+		return cps == 3 ? B : null;
 	}
 
 
