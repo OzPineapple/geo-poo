@@ -1,3 +1,4 @@
+import java.lang.Math;
 public class main{
     public static void main( String[] args ){
 		Punto[] ps = {
@@ -60,6 +61,36 @@ public class main{
 		for( Rectangulo c[] : r )
 			for( Rectangulo i : c )
 				print( i.moverRect( i.ga().add(new Punto(1,1)) , i.gb().add(new Punto(1,1)) ).toString() );
+		ps = new Punto[]{
+			new Punto(1,1), new Punto(4,5), new Punto(5,2),
+			new Punto(4,3), new Punto(5,5), new Punto(7,2),
+			new Punto(-5,1), new Punto(-4,4), new Punto(-3,1),
+			new Punto(-6,2), new Punto(-6,4), new Punto(-2,2),
+			new Punto(-5,-3), new Punto(-4,-1), new Punto(-3,-4),
+			new Punto(-3,-2), new Punto(-2,-1), new Punto(-1,-2),
+			new Punto(1,-5), new Punto(4,-1), new Punto(7,-4),
+			new Punto(3,-3), new Punto(4,-2), new Punto(6,-4),
+		};
+
+		Triangulo ts[] = new Triangulo[8];
+
+		for( int i = 0,j=0; i < ps.length ; i+= 3,j++)
+			ts[j] = new Triangulo( "t"+(j+1), ps[i], ps[i+1], ps[i+2] );
+
+		print("Triangulos");
+		for( Triangulo t : ts )
+			print( t.toString() );
+
+		print("Comparar");
+		for( int i = 0; i < ts.length - 1; i++ )
+			print( ts[i].gn() + "=" + ts[i].area() + " ? "+ ts[i+1].gn() + "=" + ts[i+1].area() + ":" + ts[i].comparar(ts[i+1]) );
+
+		print("Interseccion");
+		for( int i = 0; i < ts.length ; i+=2 )
+			print( ts[i].gn() + " ∩ " + ts[i+1].gn() + ":" + 
+					( ts[i].inter(ts[i+1]) == null ? "null":ts[i].inter(ts[i+1]).toString() )
+				 );
+
     }
 
 	public static void print( String s )

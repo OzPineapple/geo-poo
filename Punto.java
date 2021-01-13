@@ -27,17 +27,32 @@ public class Punto{
     public String toString()
         {return n+"("+x+","+y+")";}
     
-    public double distancia()
+    public double mag()
         {return Math.sqrt( x*x + y*y );}
+
 	public double distancia( Punto p )
 		{return this.distancia(p.gx(),p.gy());}
+
+	public double dis( Punto p )
+		{return this.distancia( p );}
+
     public double distancia(double i, double j)
         {return Math.sqrt( Math.pow(x-i,2) + Math.pow(y-j,2) );}
+
     public int cuadrante()
         {return (x>=0)? (y>=0)? 1:4 : (y>=0)? 2:3;}
+
     public Punto neg()
         {return new Punto( -1 * this.gx(), -1 * this.gy() );} 
+
     public Punto add(Punto p)
         {return new Punto(this.gx() + p.gx(), this.gy() + p.gy());}
+
+	public Punto vec( Punto p )
+		{return p.add( this.neg() );}
+
+	public double punto( Punto p )
+		{return Trigo.punto( this, p );}
+
     public Punto clone(){ return new Punto( this.gx(), this.gy() );}
 }

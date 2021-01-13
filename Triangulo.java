@@ -41,14 +41,11 @@ public class Triangulo {
 	public void sb(Punto x){ b = x; }
 	public void sc(Punto x){ c = x; }
 
-	public double area() { 
-		return Trigo.abs( 
-				Trigo.cruz( 
-					new double[]{ ps[0].gx() - ps[1].gx(), ps[0].gy() - ps[1].gy(), 0 },
-					new double[]{ ps[0].gx() - ps[2].gx(), ps[0].gy() - ps[2].gy(), 0 }
-				)
-			);
-	}
+	public String toString()
+		{return n+":{"+a.toString()+","+b.toString()+","+c.toString()+"}";}
+
+	public double area() 
+		{return ( a.gx() * ( b.gy() -	c.gy() ) + b.gx() * (	c.gy() - a.gy()	) + c.gx() * ( a.gy() - b.gy()	) ) / 2;}
 
 	public int comparar(Triangulo r){
 		double T = this.area(), R = r.area();
@@ -61,18 +58,23 @@ public class Triangulo {
 	}
 	
 	public boolean puntoDentro( Punto p ){
-		Punto v1 = this.gb().add(this.ga().neg());
-		Punto v2 = this.gc().add(this.ga().neg());
-		double d1 = ( v2.gx()*( p.gy() + this.a.gy() ) + v2.gy()*( p.gx() - this.ga().gx() ))/( v1.gx()*v2.gy() - v1.gy()*v2.gx() );
-		double d2 = ( p.gy() - this.ga().gy() - d1*v1.gy() ) / v2.gy();
-		if( d1 < 0 || d2 < 0 ) return false;
-		if( d1 <= this.ga().distancia(this.gb()) ){
-			double p2 = 1 - ( d1 / this.ga().distancia(this.gb()) );
-			if( d2 <= this.ga().distancia(this.gc()) * p2 ) return true;
-		} return false;
+		Punto ab = a.vec( b );
+		Punto ac = a.vec( c );
+		double	c0 = (  ac.gy() * ( a.gx() - p.gx() ) + ac.gx() * ( p.gy() - a.gy()	)	)/
+						/*-----------------------------------------------------------*/
+					 (				ab.gy()*ac.gx() - ab.gx()*ac.gy()					);
+
+		double	c1 = (  p.gy() - a.gy() - c0 * ab.gy() ) / ( ac.gy() );
+
+		return c0 > 0 && c1 > 0 && c0 + c1 < 1;
 	}
 
-	public Triangulo interseccion( Triangulo A, Triangulo B ){
+	public Triangulo inter( Triangulo t ){
+		Triangulo r = inter( this, t );
+		if( r == null ) r = inter( t, this );
+		return r;
+	}
+	public Triangulo inter( Triangulo A, Triangulo B ){
 		Recta r[] = new Recta[2];
 		Punto p[] = new Punto[2];
 		for( int i = 0; i < 3 ; i++ ) {

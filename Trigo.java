@@ -1,17 +1,21 @@
 import java.lang.Math;
 
 public class Trigo{
-    public static double angle(Punto a, Punto b, Punto c){
-		double alpha = Math.atan2( b.gy() - a.gy(), b.gx() - a.gy() );
-		double gamma = Math.atan2( b.gy() - c.gy(), b.gx() - c.gy() );
-		alpha = alpha < 0 ? alpha * -1 : alpha;
-		gamma = gamma < 0 ? gamma * -1 : gamma;
-		return Math.PI - alpha - gamma;
-	}
+	/*
+	 * a⃗ . b⃗ = |a||b| cosΘ
+	 * a . b = a.x b.x + a.y + b.y
+	 * | a | = sqrt( x^2 + y^2 )
+	 * Θ = acon( a . b /  |a||b| )
+	 * */
+    public static double angle(Punto a, Punto b )
+		{return Math.acos( ( a.punto( b ) )/( a.mag() * b.mag() ));}
 
-    public static Punto interRecta( Punto a, Punto b, Punto c, Punto d ){
-		return Trigo.interRecta( new Recta( a, b ), new Recta( a, b ) );
-	}
+	public static double angle(Punto a, Punto b, Punto c)
+		{return Trigo.angle( b.vec(a), b.vec(c) );}
+
+	public static double punto( Punto a, Punto b )
+		{return (a.gx()*b.gx()) + (a.gy()*b.gy());}
+
     public static Punto interRecta( Recta r1, Recta r2 ){
 		if( r1.gxl() > r2.gxb() || r1.gxb() < r2.gxl() ||
 			r1.gyl() > r2.gyb() || r1.gyb() < r2.gyl() )
