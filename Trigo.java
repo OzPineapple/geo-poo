@@ -34,7 +34,7 @@ public class Trigo{
 			if( q_pXr == 0 ){
 				t = (q.vec(p) ).punto( r ) / ( r.punto( r ) );
 				u = t + s.punto( r )   / ( r.punto( r ) );
-				if( t < 0 || u < 0 ) return null;
+				if( t < 0 || u < 0 || t > 1 || u > 1 ) return null;
 				return p.add( r.scal( t ) ); 
 			} else return null;
 		} else {

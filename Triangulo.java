@@ -82,6 +82,7 @@ public class Triangulo {
 		for( int i = 0; i < 3 ; i++ ) {
 			if( ! A.puntoDentro( B.gps()[i] ) ) continue;
 			cps++;
+			if( cps == 3 ) return B;
 			r[0] = new Recta( B.gps()[i], B.gps()[ i == 0 ? 2: i - 1 ] );
 			r[1] = new Recta( B.gps()[i], B.gps()[ i == 2 ? 0: i + 1 ] );
 			for( int j = 0 ; j < 3 ; j++ ) {
@@ -91,7 +92,7 @@ public class Triangulo {
 				return new Triangulo( B.gps()[i], p[0], p[1] );
 			}
 		}
-		return cps == 3 ? B : null;
+		return null;
 	}
 
 
